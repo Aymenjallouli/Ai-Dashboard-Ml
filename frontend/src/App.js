@@ -42,7 +42,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 // URL de l'API
-const API_URL = 'http://localhost:5000';
+// Utiliser la variable d'environnement REACT_APP_API_URL si elle existe, sinon utiliser localhost
+const API_URL = process.env.REACT_APP_API_URL || 'https://smart-parking-api-xgay.onrender.com';
 
 // Thème global personnalisé
 const theme = createTheme({

@@ -56,7 +56,8 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 // URL de l'API
-const API_URL = 'http://localhost:5000';
+// Utiliser la variable d'environnement REACT_APP_API_URL si elle existe, sinon utiliser localhost
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 // Thème personnalisé pour les tests
 const testTheme = createTheme({
