@@ -45,37 +45,65 @@ for file in required_files:
         print(f"Fichier manquant: {file}")
 
 # Chargement des modèles si tous les fichiers sont présents
+# Variables globales pour les modèles
+model_columns = None
+regression_features = None
+regression_model = None  
+regression_scaler = None
+classification_features = None
+classification_model = None
+classification_scaler = None
+kmeans_model = None
+kmeans_scaler = None
+kmeans_features = None
+kmeans_ready = False
+
 if models_ready:
-    # Chargement des colonnes et caractéristiques
-    model_columns = joblib.load('model_columns.pkl')
-    regression_features = joblib.load('regression_features.pkl')
-    
-    # Chargement du modèle KMeans
     try:
-        kmeans_model = joblib.load('kmeans_model.pkl')
-        kmeans_scaler = joblib.load('kmeans_scaler.pkl')
-        kmeans_features = joblib.load('kmeans_features.pkl')
-        print("Modèle KMeans chargé avec succès!")
-        kmeans_ready = True
+        # Chargement des colonnes et caractéristiques
+        print("Chargement des modèles...")
+        model_columns = joblib.load('model_columns.pkl')
+        print("model_columns chargé")
+        regression_features = joblib.load('regression_features.pkl')
+        print("regression_features chargé")
+        
+        # Chargement du modèle KMeans
+        try:
+            kmeans_model = joblib.load('kmeans_model.pkl')
+            print("kmeans_model chargé")
+            kmeans_scaler = joblib.load('kmeans_scaler.pkl')
+            print("kmeans_scaler chargé")
+            kmeans_features = joblib.load('kmeans_features.pkl')
+            print("kmeans_features chargé")
+            print("Modèle KMeans chargé avec succès!")
+            kmeans_ready = True
+        except Exception as e:
+            print(f"Erreur lors du chargement du modèle KMeans: {str(e)}")
+            kmeans_ready = False
+        
+        if use_improved_models:
+            classification_features = joblib.load('improved_classification_features.pkl')
+            print("classification_features chargé")
+            classification_model = joblib.load('improved_classification_model.pkl')
+            print("classification_model chargé")
+            classification_scaler = joblib.load('improved_classification_scaler.pkl')
+            print("classification_scaler chargé")
+            print("Modèles de classification améliorés chargés avec succès!")
+        else:
+            classification_features = joblib.load('classification_features.pkl')
+            classification_model = joblib.load('classification_model.pkl')
+            classification_scaler = joblib.load('classification_scaler.pkl')
+        
+        # Chargement des modèles et scalers de régression
+        regression_model = joblib.load('regression_model.pkl')
+        print("regression_model chargé")
+        regression_scaler = joblib.load('regression_scaler.pkl')
+        print("regression_scaler chargé")
+        
+        print("Tous les modèles ont été chargés avec succès!")
     except Exception as e:
-        print(f"Erreur lors du chargement du modèle KMeans: {str(e)}")
-        kmeans_ready = False
-    
-    if use_improved_models:
-        classification_features = joblib.load('improved_classification_features.pkl')
-        classification_model = joblib.load('improved_classification_model.pkl')
-        classification_scaler = joblib.load('improved_classification_scaler.pkl')
-        print("Modèles de classification améliorés chargés avec succès!")
-    else:
-        classification_features = joblib.load('classification_features.pkl')
-        classification_model = joblib.load('classification_model.pkl')
-        classification_scaler = joblib.load('classification_scaler.pkl')
-    
-    # Chargement des modèles et scalers
-    regression_model = joblib.load('regression_model.pkl')
-    regression_scaler = joblib.load('regression_scaler.pkl')
-    
-    print("Tous les modèles ont été chargés avec succès!")
+        models_ready = False
+        print(f"ERREUR lors du chargement des modèles: {str(e)}")
 else:
     print("Certains fichiers de modèles sont manquants. Veuillez d'abord exécuter train_models.py")
 
