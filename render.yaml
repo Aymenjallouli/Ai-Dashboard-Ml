@@ -11,13 +11,12 @@ services:
         value: 5000
       - key: FLASK_ENV
         value: production
-
   # Configuration du service frontend
   - type: web
     name: smart-parking-frontend
     runtime: docker
-    dockerfilePath: ./frontend/Dockerfile.frontend
-    rootDir: ./
+    dockerfilePath: Dockerfile.frontend
+    rootDir: ./frontend
     plan: free
     envVars:
       - key: API_URL
