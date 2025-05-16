@@ -3,8 +3,7 @@ services:
   - type: web
     name: smart-parking-api
     runtime: docker
-    buildCommand: docker build -t smart-parking-api -f Dockerfile.backend .
-    startCommand: docker run -p $PORT:5000 smart-parking-api
+    dockerfilePath: ./Dockerfile.backend
     plan: starter
     healthCheckPath: /health
     envVars:
@@ -17,12 +16,12 @@ services:
   - type: web
     name: smart-parking-frontend
     runtime: docker
-    buildCommand: cd frontend && docker build -t smart-parking-frontend -f Dockerfile.frontend .
-    startCommand: docker run -p $PORT:80 -e API_URL=${API_URL} smart-parking-frontend
+    dockerfilePath: ./frontend/Dockerfile.frontend
+    rootDir: ./
     plan: starter
     envVars:
       - key: API_URL
         fromService:
           name: smart-parking-api
           type: web
-          property: url
+          property: host
