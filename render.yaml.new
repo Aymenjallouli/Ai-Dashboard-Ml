@@ -12,9 +12,9 @@ services:
       - key: FLASK_ENV
         value: production
 
-  # Configuration du service frontend
+# Configuration du service frontend
   - type: web
-    name: Parkini-smart-Dashboard
+    name: smart-parking-frontend
     runtime: docker
     dockerfilePath: Dockerfile.frontend
     rootDir: ./frontend

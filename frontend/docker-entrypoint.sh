@@ -1,9 +1,24 @@
 #!/bin/bash
-# Script pour remplacer les variables d'environnement dans la configuration nginx
+# Script de démarrage pour le conteneur frontend
 
-# Remplacer les variables d'environnement dans les fichiers de configuration
-envsubst '${API_URL}' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp
-mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf
+# Afficher les variables pour débogage
+echo "Starting with environment:"
+echo "API_URL = ${API_URL}"
+echo "REACT_APP_API_URL = ${REACT_APP_API_URL}"
 
-# Exécuter la commande fournie
-exec "$@"
+# S'assurer que API_URL a toujours une valeur avec protocole
+if [[ "$API_URL" != http* ]]; then
+    export API_URL="http://${API_URL:-localhost:5000}"
+fi
+
+echo "Using API_URL: $API_URL for nginx configuration"
+
+# Substituer les variables dans la configuration nginx
+envsubst '$API_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+
+# Afficher la configuration générée pour débogage
+echo "Generated nginx configuration:"
+cat /etc/nginx/conf.d/default.conf
+
+# Démarrer nginx en mode premier plan
+nginx -g "daemon off;"
