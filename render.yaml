@@ -4,7 +4,7 @@ services:
     name: smart-parking-api
     runtime: docker
     dockerfilePath: ./Dockerfile.backend
-    plan: starter
+    plan: free
     healthCheckPath: /health
     envVars:
       - key: PORT
@@ -18,7 +18,7 @@ services:
     runtime: docker
     dockerfilePath: ./frontend/Dockerfile.frontend
     rootDir: ./
-    plan: starter
+    plan: free
     envVars:
       - key: API_URL
         fromService:
