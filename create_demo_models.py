@@ -71,12 +71,18 @@ joblib.dump(model_class, 'improved_classification_model.pkl')
 joblib.dump(scaler_class, 'improved_classification_scaler.pkl')
 print("improved_classification_model.pkl et improved_classification_scaler.pkl créés")
 
-# Modèle KMeans
+# Modèle KMeans - Ajout d'échantillons supplémentaires pour avoir au moins 4 échantillons
 kmeans_features = np.array(['Payment_Amount', 'User_Parking_History', 'Proximity_To_Exit'])
 joblib.dump(kmeans_features, 'kmeans_features.pkl')
 
+# Créer un DataFrame avec plus d'échantillons pour KMeans
+X_kmeans = pd.DataFrame({
+    'Payment_Amount': [10, 15, 20, 25, 5],
+    'User_Parking_History': [5, 10, 15, 20, 25],
+    'Proximity_To_Exit': [5, 7, 9, 3, 8]
+})
+
 scaler_kmeans = StandardScaler()
-X_kmeans = demo_data[['Payment_Amount', 'User_Parking_History', 'Proximity_To_Exit']]
 X_kmeans_scaled = scaler_kmeans.fit_transform(X_kmeans)
 kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
 kmeans.fit(X_kmeans_scaled)
