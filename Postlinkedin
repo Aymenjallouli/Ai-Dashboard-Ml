@@ -1,0 +1,22 @@
+🚗 Excited to share my latest #DataScience project: Smart Parking Prediction Dashboard! 🚘
+
+I've developed a comprehensive machine learning solution that helps parking operators optimize their operations and enhance user experience through predictive analytics:
+
+🔍 Key Features:
+• Parking duration prediction using regression models
+• Real-time occupancy forecasting with enhanced classification algorithms
+• User behavior clustering that segments customers into meaningful profiles
+• API-powered backend with Flask for seamless integration
+
+💡 Business Impact:
+• Optimize parking space allocation based on predicted occupancy
+• Personalize pricing strategies for different user segments
+• Improve traffic flow management during peak hours
+• Data-driven decision making for facility planning
+
+The system employs multiple ML models (regression, classification, and K-means clustering) with standardized preprocessing pipelines to ensure accurate predictions across different scenarios.
+
+Tech stack: #Python #Flask #MachineLearning #Scikit-learn #DataVisualization #API
+
+
+#SmartParking #PredictiveAnalytics #UrbanMobility #AI #DataDrivenDecisions
